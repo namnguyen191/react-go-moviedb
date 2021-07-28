@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "client"
+		},
+		{
+			"path": "server"
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 30000
+	}
+}
