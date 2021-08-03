@@ -1,28 +1,33 @@
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import SimpleGlobalLoader from '../../components/Loaders/SimpleGlobalLoader';
 import { Movie } from '../../shared/types/movie';
-import styles from './MoviePage.module.css';
+import styles from './OneGenrePage.module.css';
 
-type MoviePageState = {
-  movies: Movie[];
+type OneGenrePageState = {
   loaded: boolean;
-  error: boolean;
+  err: boolean;
+  genreName: string;
+  movies: Movie[];
 };
 
-const initialMoviePageState: MoviePageState = {
-  movies: [],
+const initialState: OneGenrePageState = {
   loaded: false,
-  error: false
+  err: false,
+  genreName: '',
+  movies: []
 };
 
-const MoviePage: React.FC = () => {
-  const [state, setState] = useState<MoviePageState>(initialMoviePageState);
+const OneGenrePage: React.FC = () => {
+  const [state, setState] = useState<OneGenrePageState>(initialState);
+  const { id: genreId } = useParams<{ id: string }>();
+  const location = useLocation<{ genreName: string }>();
 
   useEffect(() => {
     axios
-      .get<{ movies: Movie[] }>(`http://localhost:4000/v1/movies/`)
+      .get<{ movies: Movie[] }>(`http://localhost:4000/v1/movies/${genreId}`)
       .then((res) => {
         setState((oldState) => {
           return {
@@ -50,23 +55,23 @@ const MoviePage: React.FC = () => {
       return;
     }
     return (
-      <ul>
+      <List>
         {state.movies.map((movie) => {
           return (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <h3>{movie.title}</h3>
-              </Link>
-            </li>
+            <Link key={movie.id} to={`/movies/${movie.id}`}>
+              <ListItem button>
+                <ListItemText primary={movie.title} />
+              </ListItem>
+            </Link>
           );
         })}
-      </ul>
+      </List>
     );
   };
 
-  if (state.error) {
+  if (state.err) {
     return (
-      <h2 className={styles.moviePageContainer}>
+      <h2 className={styles.OneGenrePageContainer}>
         Something went wrong! Please reload this page or try again later.
       </h2>
     );
@@ -77,11 +82,11 @@ const MoviePage: React.FC = () => {
   }
 
   return (
-    <div className={styles.moviePageContainer}>
-      <h2 className={styles.title}>Choose a movie</h2>
+    <div className={styles.OneGenrePageContainer}>
+      <h2>{location.state.genreName} Movies</h2>
       {renderMoviesList()}
     </div>
   );
 };
 
-export default MoviePage;
+export default OneGenrePage;
