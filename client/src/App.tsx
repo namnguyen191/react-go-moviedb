@@ -2,6 +2,7 @@ import { Container } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import styles from './App.module.css';
 import Navbar from './components/Navbar/Navbar';
+import AdminAddMovie from './pages/AdminAddMovie/AdminAddMovie';
 import AdminPage from './pages/AdminPage/AdminPage';
 import GenresPage from './pages/GenresPage/GenresPage';
 import HomePage from './pages/HomePage/HomePage';
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/movies/:id" exact component={MovieDetailPage} />
           <Route path="/genre/:id" exact component={OneGenrePage} />
           <Route path="/admin" exact component={AdminPage} />
+          <Route path="/admin/add" exact component={AdminAddMovie} />
           <Route path="/">
             <h1>Page not found</h1>
           </Route>

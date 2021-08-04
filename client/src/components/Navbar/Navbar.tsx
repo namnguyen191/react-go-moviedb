@@ -19,43 +19,47 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     list: {
-      width: 250
+      width: 250,
     },
     fullList: {
-      width: 'auto'
-    }
+      width: 'auto',
+    },
   })
 );
 
 const normalLinks: { text: string; path: string }[] = [
   {
     text: 'Home',
-    path: '/'
+    path: '/',
   },
   {
     text: 'Movies',
-    path: '/movies'
+    path: '/movies',
   },
   {
     text: 'Genres',
-    path: '/movies/genres'
-  }
+    path: '/movies/genres',
+  },
 ];
 
 const adminLinks: { text: string; path: string }[] = [
   {
     text: 'Manage Catalogue',
-    path: '/admin'
-  }
+    path: '/admin',
+  },
+  {
+    text: 'Add New Movie',
+    path: '/admin/add',
+  },
 ];
 
 const Navbar: React.FC = () => {
