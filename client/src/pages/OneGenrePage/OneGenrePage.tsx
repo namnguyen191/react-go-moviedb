@@ -2,7 +2,7 @@ import { List, ListItem, ListItemText } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import SimpleGlobalLoader from '../../components/Loaders/SimpleGlobalLoader';
+import SimpleGlobalLoader from '../../shared/components/Loaders/SimpleGlobalLoader';
 import { Movie } from '../../shared/types/movie';
 import styles from './OneGenrePage.module.css';
 
@@ -17,7 +17,7 @@ const initialState: OneGenrePageState = {
   loaded: false,
   err: false,
   genreName: '',
-  movies: []
+  movies: [],
 };
 
 const OneGenrePage: React.FC = () => {
@@ -33,7 +33,7 @@ const OneGenrePage: React.FC = () => {
           return {
             ...oldState,
             movies: res.data.movies,
-            loaded: true
+            loaded: true,
           };
         });
       })
@@ -43,7 +43,7 @@ const OneGenrePage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true
+            error: true,
           };
         });
       });

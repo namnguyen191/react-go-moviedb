@@ -5,14 +5,14 @@ import {
   Box,
   Chip,
   Divider,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SimpleGlobalLoader from '../../components/Loaders/SimpleGlobalLoader';
+import SimpleGlobalLoader from '../../shared/components/Loaders/SimpleGlobalLoader';
 import { Movie } from '../../shared/types/movie';
 import styles from './MovieDetailPage.module.css';
 
@@ -25,7 +25,7 @@ type MovieDetailState = {
 const initialState: MovieDetailState = {
   movie: null,
   loaded: false,
-  error: false
+  error: false,
 };
 
 const MovieDetailPage: React.FC = () => {
@@ -43,7 +43,7 @@ const MovieDetailPage: React.FC = () => {
           return {
             ...oldState,
             movie: res.data.movie,
-            loaded: true
+            loaded: true,
           };
         });
       })
@@ -53,7 +53,7 @@ const MovieDetailPage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true
+            error: true,
           };
         });
       });

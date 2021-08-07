@@ -57,8 +57,8 @@ const adminLinks: { text: string; path: string }[] = [
     path: '/admin',
   },
   {
-    text: 'Add New Movie',
-    path: '/admin/add',
+    text: 'Add/Edit Movie',
+    path: '/admin/movie/0',
   },
 ];
 

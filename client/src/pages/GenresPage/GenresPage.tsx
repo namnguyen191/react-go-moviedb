@@ -2,7 +2,7 @@ import { Box, Chip } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import SimpleGlobalLoader from '../../components/Loaders/SimpleGlobalLoader';
+import SimpleGlobalLoader from '../../shared/components/Loaders/SimpleGlobalLoader';
 import styles from './GenresPage.module.css';
 
 type GenresPageState = {
@@ -17,7 +17,7 @@ type GenresPageState = {
 const initialState: GenresPageState = {
   genres: [],
   err: false,
-  loaded: false
+  loaded: false,
 };
 
 const GenresPage: React.FC = () => {
@@ -35,7 +35,7 @@ const GenresPage: React.FC = () => {
           return {
             ...oldState,
             genres: res.data.genres,
-            loaded: true
+            loaded: true,
           };
         });
       })
@@ -45,7 +45,8 @@ const GenresPage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true
+            loaded: true,
+            err: true,
           };
         });
       });
@@ -61,8 +62,8 @@ const GenresPage: React.FC = () => {
               to={{
                 pathname: `/genre/${genre.id}`,
                 state: {
-                  genreName: genre.genre_name
-                }
+                  genreName: genre.genre_name,
+                },
               }}
             >
               <Chip onClick={() => {}} label={genre.genre_name} />

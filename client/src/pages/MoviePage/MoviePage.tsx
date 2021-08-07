@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import SimpleGlobalLoader from '../../components/Loaders/SimpleGlobalLoader';
+import SimpleGlobalLoader from '../../shared/components/Loaders/SimpleGlobalLoader';
 import { Movie } from '../../shared/types/movie';
 import styles from './MoviePage.module.css';
 
@@ -14,7 +14,7 @@ type MoviePageState = {
 const initialMoviePageState: MoviePageState = {
   movies: [],
   loaded: false,
-  error: false
+  error: false,
 };
 
 const MoviePage: React.FC = () => {
@@ -28,7 +28,7 @@ const MoviePage: React.FC = () => {
           return {
             ...oldState,
             movies: res.data.movies,
-            loaded: true
+            loaded: true,
           };
         });
       })
@@ -38,7 +38,7 @@ const MoviePage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true
+            error: true,
           };
         });
       });
