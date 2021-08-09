@@ -1,3 +1,4 @@
+import { Divider, ListItem, ListItemText } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,7 +15,7 @@ type MoviePageState = {
 const initialMoviePageState: MoviePageState = {
   movies: [],
   loaded: false,
-  error: false,
+  error: false
 };
 
 const MoviePage: React.FC = () => {
@@ -28,7 +29,7 @@ const MoviePage: React.FC = () => {
           return {
             ...oldState,
             movies: res.data.movies,
-            loaded: true,
+            loaded: true
           };
         });
       })
@@ -38,7 +39,7 @@ const MoviePage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true,
+            error: true
           };
         });
       });
@@ -53,11 +54,12 @@ const MoviePage: React.FC = () => {
       <ul>
         {state.movies.map((movie) => {
           return (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <h3>{movie.title}</h3>
-              </Link>
-            </li>
+            <Link key={movie.id} to={`/movies/${movie.id}`}>
+              <ListItem>
+                <ListItemText primary={movie.title} />
+              </ListItem>
+              <Divider />
+            </Link>
           );
         })}
       </ul>
