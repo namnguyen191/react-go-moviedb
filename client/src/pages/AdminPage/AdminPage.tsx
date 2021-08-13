@@ -15,7 +15,7 @@ type AdminPageState = {
 const initialAdminPageState: AdminPageState = {
   movies: [],
   loaded: false,
-  error: false
+  error: false,
 };
 
 const AdminPage: React.FC = () => {
@@ -29,7 +29,7 @@ const AdminPage: React.FC = () => {
           return {
             ...oldState,
             movies: res.data.movies,
-            loaded: true
+            loaded: true,
           };
         });
       })
@@ -39,7 +39,7 @@ const AdminPage: React.FC = () => {
         setState((oldState) => {
           return {
             ...oldState,
-            error: true
+            error: true,
           };
         });
       });
@@ -51,19 +51,17 @@ const AdminPage: React.FC = () => {
       return;
     }
     return (
-      <ul>
+      <List dense>
         {state.movies.map((movie) => {
           return (
-            <List dense>
-              <Link key={movie.id} to={`/admin/movie/${movie.id}`}>
-                <ListItem>
-                  <ListItemText primary={movie.title} />
-                </ListItem>
-              </Link>
-            </List>
+            <Link key={movie.id} to={`/admin/movie/${movie.id}`}>
+              <ListItem>
+                <ListItemText primary={movie.title} />
+              </ListItem>
+            </Link>
           );
         })}
-      </ul>
+      </List>
     );
   };
 

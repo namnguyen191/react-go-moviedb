@@ -9,7 +9,7 @@ import {
   DialogTitle,
   FormControl,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ enum MPAARatings {
   PG = 'PG',
   PG13 = 'PG13',
   R = 'R',
-  NC17 = 'NC17'
+  NC17 = 'NC17',
 }
 
 const AdminMovie: React.FC = () => {
@@ -43,7 +43,7 @@ const AdminMovie: React.FC = () => {
     release_date: new Date(),
     mpaa_rating: MPAARatings.G,
     description: 'Please provide a description for this movie',
-    rating: 0
+    rating: 0,
   });
 
   useEffect(() => {
@@ -65,14 +65,14 @@ const AdminMovie: React.FC = () => {
   const handleDateChange = (date: Date | null) => {
     setMovie((oldMovieState) => ({
       ...oldMovieState,
-      release_date: date ?? new Date()
+      release_date: date ?? new Date(),
     }));
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMovie((oldMovieState) => ({
       ...oldMovieState,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -83,8 +83,18 @@ const AdminMovie: React.FC = () => {
   };
 
   const confirmDelete = () => {
+    const jwtKey = localStorage.getItem(
+      process.env.REACT_APP_JWT_LOCAL_STORAGE_KEY ?? 'please_provide_a_key'
+    );
+
+    if (!jwtKey) {
+      throw new Error('Fail to get JWT key, please login again');
+    }
+
     axios
-      .delete(`http://localhost:4000/v1/admin/deletemovie/${id}`)
+      .delete(`http://localhost:4000/v1/admin/deletemovie/${id}`, {
+        headers: { Authorization: `Bearer ${jwtKey}` },
+      })
       .then((res) => {
         history.push('/admin');
         console.log(res);
@@ -94,8 +104,18 @@ const AdminMovie: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    const jwtKey = localStorage.getItem(
+      process.env.REACT_APP_JWT_LOCAL_STORAGE_KEY ?? 'please_provide_a_key'
+    );
+
+    if (!jwtKey) {
+      throw new Error('Fail to get JWT key, please login again');
+    }
+
     axios
-      .post('http://localhost:4000/v1/admin/editmovie', movie)
+      .post('http://localhost:4000/v1/admin/editmovie', movie, {
+        headers: { Authorization: `Bearer ${jwtKey}` },
+      })
       .then((res) => {
         console.log(res);
       })
